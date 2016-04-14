@@ -6,7 +6,7 @@
  */
 
 const path  = require('path'),
-  fs        = require('fs-extra'),
+  fs        = require('fs'),
   lambdaWrapper = require('lambda-wrapper'),
   Mocha = require('mocha'),
   chai = require('chai'),
@@ -147,7 +147,7 @@ module.exports = function(S) { // Always pass in the ServerlessPlugin Class
             if (exists) {
                 return resolve(testFolder);
             }
-            fs.mkdirs(testFolder, function(err) {
+            fs.mkdir(testFolder, function(err) {
                 if (err) {
                     return reject(err);
                 }
@@ -204,7 +204,7 @@ module.exports = function(S) { // Always pass in the ServerlessPlugin Class
   
   // Returns the path to a function's test file
   function testFilePath(funcName) {
-      return path.join(testFolder, `${funcName.replace('/', '_')}.js`);
+      return path.join(testFolder, `${funcName.replace(/\//g, '_')}.js`);
   }
   
   function newTestFile(funcName) {
