@@ -6,7 +6,7 @@
  */
 
 const path  = require('path'),
-  fs        = require('fs'),
+  fs        = require('fs-extra'),
   lambdaWrapper = require('lambda-wrapper'),
   Mocha = require('mocha'),
   chai = require('chai'),
@@ -147,7 +147,7 @@ module.exports = function(S) { // Always pass in the ServerlessPlugin Class
             if (exists) {
                 return resolve(testFolder);
             }
-            fs.mkdir(testFolder, function(err) {
+            fs.mkdirs(testFolder, function(err) {
                 if (err) {
                     return reject(err);
                 }
